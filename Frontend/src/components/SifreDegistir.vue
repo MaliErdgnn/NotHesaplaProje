@@ -21,23 +21,54 @@
   </template>
   
   <script>
+  import axios from 'axios';
   export default {
+    computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
     data() {
       return {
         currentPassword: '',
         newPassword: '',
-        repeatPassword: ''
+        repeatPassword: '',
+        headers: {
+          "headers": {
+  'Authorization': `Bearer ${this.$store.state.token}`
+}}
       };
     },
     methods: {
       savePassword() {
-        if (this.newPassword !== this.repeatPassword) {
+        if (this.newPassword != this.repeatPassword || this.currentPassword != this.$store.state.user.sifre) {
           // Show error message or handle the mismatched passwords
           alert('Passwords do not match.');
         } else if(this.newPassword == '' || this.repeatPassword == '' || this.currentPassword == ''){
           alert('Fill in the blanks.')
         }else{
-          this.$router.push('/profil');
+          console.log('Bearer ' + this.$store.state.user.token)
+          var sonuc = axios.put(`http://localhost:8081/odev/kullanici`, {
+            "email": this.$store.state.user.email,
+            "newEmail": this.$store.state.user.email,
+            "ad": this.$store.state.user.ad,
+            "soyad": this.$store.state.user.soyad,
+            "sifre": this.newPassword,
+            },{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}}).then(response => {
+              if(response.data != null){
+                alert("Şifreniz başarıyla değiştirildi!");
+                this.$store.commit('LOGIN', {
+                  email: this.$store.state.user.email,
+                  ad: this.$store.state.user.ad,
+                  soyad: this.$store.state.user.soyad,
+                  sifre: this.newPassword,
+                  token: response.data.token
+                });
+                this.$router.push("/Profil");
+            }else{
+              alert("Şifreniz değiştirilemedi!");
+            }}
+            )
         }
       }
     }

@@ -32,6 +32,8 @@
   </template>
   
   <script>
+  import axios from 'axios';
+
   export default {
     data() {
       return {
@@ -44,8 +46,19 @@
     },
     methods: {
       register() {
-        // Perform registration logic here
-      }
+        axios.post(`http://localhost:8081/odev/kullanici/register`, {
+          "email": this.email,
+          "ad": this.name,
+          "soyad": this.surname,
+          "sifre": this.password,
+          }).then(response => {
+            if(response.data.email == this.email){
+              alert("Kayıt başarılı!");
+              this.$router.push("/");
+            }else{
+              alert("Bu e-mail adresi zaten kayıtlı!");
+            }
+      })},
     }
   };
   </script>

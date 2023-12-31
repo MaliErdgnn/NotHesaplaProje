@@ -1,18 +1,38 @@
 
 <template>
-    <div class="main-container">
-      <h1 class="title">Hoşgeldiniz, Mehmet Ali Erdoğan!</h1>
+    <div class="main-container" >
+      
+        <h1 v-if="user" class="title">Hoşgeldiniz, {{user.ad}} {{user.soyad}}!</h1>
+      
       <div class="button-container">
         <router-link to="/DersHarfNotuHesapla"><button class="button">Ders Harf Notu Hesapla</button></router-link>
         <div class="button-group">
-          <router-link to="/Profil"><button class="button">Profil</button></router-link>
+          <button @click="login" class="button">Profil</button>
           <router-link to="/GecmisNotlar"><button class="button">Geçmiş Hesaplamaları Gör</button></router-link>
         </div>
         <router-link to="/NotOrtalamasıHesapla"><button class="button">Genel Ortalama Hesaplama</button></router-link>
       </div>
     </div>
   </template>
+
+  <script>
+
+  export default {
+    computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  },
+    methods: {
+      login() {
+        this.$router.push("/Profil");
+      }
+    }
+  };
+ 
   
+  </script>
+
   <style>
   .main-container {
     display: flex;
