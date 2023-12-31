@@ -1,29 +1,41 @@
+package com.example.demo.controller;
+import com.example.demo.DTO.OrtHesaplayici;
+import com.example.demo.entity.OrtHesap;
+import com.example.demo.service.OrtHesapService;
 
-package com.example.demo.Controller;
-
-import com.example.demo.Model.ortHesap;
-import com.example.demo.Service.ortHesapService;
-import com.example.demo.Service.ortHesapService.GenelNotOrtalamasiDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
-public class ortHesapController {
+@RequestMapping("/odev/orthesap")
+@CrossOrigin
+public class OrtHesapController {
+    private final OrtHesapService ortHesapService;
 
-    @Autowired
-    private ortHesapService ortHesapService;
-
-    @PostMapping("/NotOrtalamasiHesapla")
-    public void hesaplaVeKaydet(@RequestBody ortHesap ortHesap) {
-        ortHesapService.hesaplaVeKaydet(ortHesap);
+    public OrtHesapController(OrtHesapService ortHesapService) {
+        this.ortHesapService = ortHesapService;
     }
 
-    @GetMapping("/GecmisNotlar")
-    public List<GenelNotOrtalamasiDTO> getGenelNotOrtalamalari() {
-        return ortHesapService.getGenelNotOrtalamalari();
+    @GetMapping
+    public List<OrtHesap> getOrtHesap(){
+        return ortHesapService.getOrtHesap();
+    }
+    @GetMapping("/{id}")
+    public Optional<OrtHesap> getOrtHesapById(@PathVariable("id") Long id){
+        return ortHesapService.getOrtHesapById(id);
+    }
+    @PostMapping
+    public OrtHesap saveOrtHesap(@RequestBody OrtHesaplayici ortHesaplayici){
+        return ortHesapService.hesaplaVeKaydet(ortHesaplayici);
+    }
+    @PutMapping
+    public OrtHesap updateHesap(@RequestBody OrtHesaplayici ortHesaplayici){
+        return ortHesapService.guncelleVeKaydet(ortHesaplayici);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteHesap(@PathVariable("id") Long id){
+         ortHesapService.sil(id);
     }
 }
