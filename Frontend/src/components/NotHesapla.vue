@@ -571,14 +571,71 @@ export default {
               console.log("Notlarınız başarıyla hesaplandı!");
             }else{
               console.log("Notlarınız hesaplanamadı!");
-            }}).then(async()=>{
+            }}).then(async ()=> {
+                      for(var i = 0; i < this.projeId.length; i++){
+                        await axios.delete(`http://localhost:8081/odev/proje/${this.projeId[i]}`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
+                        .then((response)=>{
+                          if(response.data == 1){
+                            console.log("Proje başarıyla silindi!");
+                          }else{
+                            console.log(response.data);
+                            console.log("Proje silinemedi!");
+                          }
+                        }
+                        )
+                      }
+                      this.projeId = []
+                    }).then(async ()=>{
+                      for(var i = 0; i < this.labId.length; i++){
+                        await axios.delete(`http://localhost:8081/odev/lab/${this.labId[i]}`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
+                        .then((response)=>{
+                          if(response.data == 1){
+                            console.log("Lab başarıyla silindi!");
+                          }else{
+                            console.log(response.data);
+                            console.log("Lab silinemedi!");
+                          }
+                        }
+                        )
+                      }
+                      this.labId = []
+                    }).then(async ()=>{
+                      for(var i = 0; i < this.odevId.length; i++){
+                        await axios.delete(`http://localhost:8081/odev/odev/${this.odevId[i]}`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
+                        .then((response)=>{
+                          if(response.data == 1){
+                            console.log("Odev başarıyla silindi!");
+                          }else{
+                            console.log(response.data);
+                            console.log("Odev silinemedi!");
+                          }
+                        }
+                        )
+                      }
+                      this.odevId = []
+                    }).then(async ()=>{
+                      for(var i = 0; i < this.quizId.length; i++){
+                        await axios.delete(`http://localhost:8081/odev/quiz/${this.quizId[i]}`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
+                        .then((response)=>{
+                          if(response.data == 1){
+                            console.log("quiz başarıyla silindi!");
+                          }else{
+                            console.log(response.data);
+                            console.log("quiz silinemedi!");
+                          }
+                        }
+                        )
+                      }
+                      this.quizId = []
+                    })
+            .then(async()=>{
               await axios.get(`http://localhost:8081/odev/hasproje`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
               .then(async(response) => {
                 for(var i = 0; i < response.data.length; i++){
                   if(response.data[i].hesapID == this.id){
-                    await axios.delete(`http://localhost:8081/odev/hasproje/${response.data[i].projeID}`),{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}}
+                    await axios.delete(`http://localhost:8081/odev/hasproje/${response.data[i].projeID}`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
                     .then((response)=>{
-                      if(response.data == 1){
+                      if(response.data == null){
                         console.log("hasproje başarıyla silindi!");
                       }else{
                         console.log(response.data);
@@ -636,62 +693,6 @@ export default {
                           })
                         }
                       }
-                    }).then(async ()=> {
-                      for(var i = 0; i < this.projeId.length; i++){
-                        await axios.delete(`http://localhost:8081/odev/proje/${this.projeId[i]}`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
-                        .then((response)=>{
-                          if(response.data == 1){
-                            console.log("Proje başarıyla silindi!");
-                          }else{
-                            console.log(response.data);
-                            console.log("Proje silinemedi!");
-                          }
-                        }
-                        )
-                      }
-                      this.projeId = []
-                    }).then(async ()=>{
-                      for(var i = 0; i < this.labId.length; i++){
-                        await axios.delete(`http://localhost:8081/odev/lab/${this.labId[i]}`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
-                        .then((response)=>{
-                          if(response.data == 1){
-                            console.log("Lab başarıyla silindi!");
-                          }else{
-                            console.log(response.data);
-                            console.log("Lab silinemedi!");
-                          }
-                        }
-                        )
-                      }
-                      this.labId = []
-                    }).then(async ()=>{
-                      for(var i = 0; i < this.odevId.length; i++){
-                        await axios.delete(`http://localhost:8081/odev/odev/${this.odevId[i]}`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
-                        .then((response)=>{
-                          if(response.data == 1){
-                            console.log("Odev başarıyla silindi!");
-                          }else{
-                            console.log(response.data);
-                            console.log("Odev silinemedi!");
-                          }
-                        }
-                        )
-                      }
-                      this.odevId = []
-                    }).then(async ()=>{
-                      for(var i = 0; i < this.quizId.length; i++){
-                        await axios.delete(`http://localhost:8081/odev/quiz/${this.quizId[i]}`,{headers:{'Authorization': 'Bearer ' + this.$store.state.user.token}})
-                        .then((response)=>{
-                          if(response.data == 1){
-                            console.log("quiz başarıyla silindi!");
-                          }else{
-                            console.log(response.data);
-                            console.log("quiz silinemedi!");
-                          }
-                        }
-                        )
-                      }
-                      this.quizId = []
                     })
                     .then(async()=>{////////////////////////////////////////
                 for(var i = 0; i < this.quizSayisi; i++){

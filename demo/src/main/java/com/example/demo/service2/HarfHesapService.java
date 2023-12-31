@@ -209,7 +209,7 @@ public class HarfHesapService {
                 return "CB";
             else if (fark >= 0 && fark <= 9)
                 return "CC";
-            else if (fark >= -10 && puan <= -1)
+            else if (fark >= -10 && puan <= 0)
                 return "DC";
             else if (fark >= -15 && puan <= -11)
                 return "DD";
@@ -230,7 +230,7 @@ public class HarfHesapService {
                 return "CB";
             else if (fark >= 0 && fark <= 5)
                 return "CC";
-            else if (fark >= -4 && fark <= -1)
+            else if (fark >= -4 && fark <= 0)
                 return "CD";
             else if (fark >= -10 && fark <= -5)
                 return "DC";
@@ -244,9 +244,9 @@ public class HarfHesapService {
                 return "A";
             else if (fark >= 25 && fark <= 29)
                 return "A-";
-            else if (fark >= 20 && fark <= 84)
+            else if (fark >= 20 && fark <= 24)
                 return "B+";
-            else if (fark >= 15 && fark <= 21)
+            else if (fark >= 15 && fark <= 19)
                 return "B";
             else if (fark >= 10 && fark <= 14)
                 return "B-";
@@ -254,7 +254,7 @@ public class HarfHesapService {
                 return "C+";
             else if (fark >= 0 && fark <= 4)
                 return "C";
-            else if (fark >= -5 && fark <= -1)
+            else if (fark >= -5 && fark <= 0)
                 return "C-";
             else if (fark >= -10 && fark <= -6)
                 return "D+";
